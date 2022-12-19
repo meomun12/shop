@@ -50,7 +50,7 @@ Route::prefix('admin')->group(function () {
         Route::match(['get','post'], '/products/update/{id}',  [Admin\ProductController::class, 'updateProduct'])->name('admin.updateProduct');
         Route::get('/product/{id}',[Admin\ProductController::class, 'show'])->name('product-show');
         Route::get('product/edit/{id}',[Admin\ProductController::class, 'destroy'])->name('product-delete');
-        
+
         // order
         Route::get('/order',  [Admin\OrderController::class , 'index'])->name('admin.listOrder');
         // Route::get('/order/edit/{id}',  [Admin\OrderController::class , 'editOrder'])->name('admin.editOrder');
@@ -106,19 +106,22 @@ Route::prefix('admin')->group(function () {
 
 
 
-
+Route::prefix('clent')->group(function(){
+    Route::get('/',[Client\HomepageController::class,'index'])->name('client.homepage');
+    Route::get('/shop',[Client\ProductController::class,'index'])->name('client.shop');
+});
         // CLIENT
         Route::prefix('client')->group(function () {
         // homepage
         Route::get('/',  [Client\HomepageController::class , 'index'])->name('client.homepage');
-        
+
         // product
         Route::get('/shop', [Client\ProductController::class , 'index'])->name('client.shop');
         Route::get('/conventional', [Client\ProductController::class , 'shops'])->name('client.shops');
         Route::get('/shop/{id}', [Client\ProductController::class , 'cate_product'])->where('id', '[0-9]+')->name('client.cate-product');
         Route::get('/allow-market', [Client\ProductController::class , 'allow_market'])->name('client.allow-market');
         Route::get('/single-product/{id}', [Client\ProductController::class , 'single_Product'])->where('id', '[0-9]+')->name('client.single-product');
-        
+
         // comment product
         Route::match(['get', 'post'], '/single-product/rating/{id}', [Client\CommentController::class , 'postComment'])->where('id', '[0-9]+')
         ->name('client.comment_product');
@@ -146,7 +149,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/loginErr', [Client\AuthController::class , 'postLogin']);
         Route::get('/logout', [Client\AuthController::class, 'Logout'])     ->name('Auth.Logout');
         Route::post('/registration', [Client\AuthController::class , 'registration'])->name('client.registration');
-        
+
         // forgotpassword
         Route::match(['get','post'],'/forgotpassword',  [Client\AuthController::class , 'forgotpassword'])->name('client.forgotpassword');
         Route::match(['get','post'],'/sendSmsToken',  [Client\AuthController::class , 'sendSmsToken'])->name('client.sendSmsToken');
@@ -157,7 +160,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/wish-list',  [Client\WishlistController::class , 'index'])->name('client.show-wishlist');
         Route::match(['get','post'],'/add-wish-list/{id}',  [Client\WishlistController::class , 'add_wishlist'])->name('client.add-wishlist');
         Route::match(['get','post'],'/wish-list/remove/{id}',  [Client\WishlistController::class , 'remove_wishlist'])->name('client.remove-wishlist');
-        
+
 
         //my-account
         Route::get('/my-account',  [Client\MyAccountController::class , 'my_Account'])->name('client.my-account');

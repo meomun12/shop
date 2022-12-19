@@ -20,10 +20,10 @@ class CategoryController extends Controller
         $cates->load([
             'products'
         ]);
+         return view('admin.category.inde',[
+            'category'=>$cates
+         ]);
 
-        return view('admin.category.index', [
-            'category' => $cates
-        ]);
     }
 
     /**
@@ -76,6 +76,13 @@ class CategoryController extends Controller
     /**
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
+    public function update2_category(CategoryRequest $category,$id){
+        $this->authorize('admin');
+        $Category = Category::find($id);
+        $Category->fill($category->all());
+
+
+    }
     public function update_category(CategoryRequest $request, $id): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('admin');

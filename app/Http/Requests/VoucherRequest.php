@@ -43,5 +43,10 @@ class VoucherRequest extends FormRequest
             'amount.min'=>'số lượng có ít nhất 1 kí tự',
         ];
     }
+    public function messages_1(){
+        return [
+                ''
+        ];
+    }
 }
 

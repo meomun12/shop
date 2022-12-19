@@ -44,7 +44,7 @@ class VoucherController extends Controller
                     [
                         'status' => false,
                         'msg'=>"Mã giảm giá đã hết hạn sử dụng"
-    
+
                     ]
                 );
             }elseif($voucherCode->amount <= 0 ){
@@ -52,7 +52,7 @@ class VoucherController extends Controller
                     [
                         'status' => false,
                         'msg'=>"Mã giảm giá đã hết lần sử dụng"
-    
+
                     ]
                 );
             }
@@ -61,7 +61,7 @@ class VoucherController extends Controller
                     [
                         'status' => false,
                         'msg'=>"Đơn hàng từ 300k trở lên mới có thể áp dụng mã giảm giá"
-    
+
                     ]
                 );
             }
@@ -73,7 +73,7 @@ class VoucherController extends Controller
                     ]
                 );
             }
-                
+
             return response(
                 [
                     'totalPriceInCart' => $totalPriceInCart,
@@ -82,6 +82,38 @@ class VoucherController extends Controller
                     'msg'=>"Thêm mã giảm giá thành công"
                 ]
             );
+        }
+    }
+    public function get_voucher(Request $request){
+        $this->authorize('admin');
+        return view('admin.voucher.get_voucher');
+    }
+    public function save_voucher(Request $request){
+        $this->authorize('admin');
+        if($request->isMethod('POST')){
+            $rule =[
+                'name'=>'required',
+                'code' => 'required|unique:vouchers|min:5|max:11',
+                'finish_date'=>'required',
+                'amount'=>'required|min:1',
+                'value' =>'required',
+            ];
+            $msgE = [
+                'name.required' =>"name khong duoc de trong",
+                'code.required' =>'code khong duoc de trong',
+                'code.unique' =>'code da ton tai',
+                'code.min' =>'ma code co it nhat la 5 ki tu va nhieu nhat la 11 ki tu',
+                'code.max' =>'ma code co it nhat la 5 ki tu va nhieu nhat la 11 ki tu',
+                'finish_date.required' =>'ngay ket thuc trong',
+                'value.required' =>'gia tri trong',
+                'amount.required' =>'so luong trong',
+                'amount.min'=> 'so luong co it nhat la 1 ',
+
+            ];
+            $validator = new Validator ();
+            $validator = Validator::all();
+
+
         }
     }
     public function create_voucher(Request $request){
@@ -148,11 +180,11 @@ class VoucherController extends Controller
     }
 
     public function destroy($id)
-    {   
+    {
         $this->authorize('admin');
         $voucher = Voucher::find($id);
         $voucher->delete();
         return back();
-        
+
     }
 }

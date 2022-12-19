@@ -108,7 +108,7 @@ class CartController extends Controller
             ]
         );
     }
-}       
+}
     }
 
 
@@ -120,7 +120,7 @@ class CartController extends Controller
                     [
                         'status' => false,
                         'msg' => 'Bạn chưa chọn phương thức thanh toán',
-                        
+
                     ]
                 );
             }
@@ -129,7 +129,7 @@ class CartController extends Controller
                     [
                         'status' => false,
                         'msg' => 'Phương thức thanh toán này chưa được hỗ trợ, vui lòng chọn phương thức thanh toán khác!',
-                        
+
                     ]
                 );
             }
@@ -139,7 +139,7 @@ class CartController extends Controller
                     'email'=>'required|email|max:255',
                     'phone'=>'required|min:10|numeric',
                     'address'=>'required',
-    
+
                     ];
                 $msg = [
                     'fullname.required' =>'Vui lòng nhập đầy đủ họ tên',
@@ -151,7 +151,7 @@ class CartController extends Controller
                     'phone.min'=> 'Nhập số điện thoại có 10 chữ số',
                     'phone.numeric'=> 'Số điện thoại không đúng định dạng',
                     'address.required'=>'Bạn chưa nhập địa chỉ'
-                    
+
                 ];
                 $validator = Validator::make($rq->all(), $rule, $msg);
                 if ($validator->fails()) {
@@ -159,11 +159,11 @@ class CartController extends Controller
                         [
                             'status' => false,
                             'msg'=> [$validator->errors()]
-                            
+
                         ]
                     );
                 }
-                
+
                 $totalPriceInCart = 0;
                 foreach($_SESSION['cart'] as $val){
                     $totalPriceInCart += $val['price'] * $val['quantity'];
@@ -182,7 +182,7 @@ class CartController extends Controller
                                             }
                                             else if($_SESSION['voucher']['type'] == 2){
                                                 $voucherPrice = ($totalPriceInCart * ($_SESSION['voucher']['value']) /100);
-                                            }   
+                                            }
                                         }
                 $order_date  =  Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
                 $insertOrder = Order::insert([
@@ -213,7 +213,7 @@ class CartController extends Controller
                                     'msg' => 'Sản phẩm <b>'. $sl->name . '</b> còn <b>' . $sl->quantily + $val['quantity'] . '</b> sản phẩm',
                                 ]
                             );
-                        } 
+                        }
                         $insertOderDetail = OrderDetail::insert([
                             'order_id' =>$getOrderId->id,
                             'product_id' =>$val['id'],
@@ -226,9 +226,9 @@ class CartController extends Controller
                             unset($_SESSION['voucher']);
                         }
                     }
-                
+
                     $HostDomain = config('common.HostDomain_servesms');
-                                    $key        = config('common.key_servesms');       
+                                    $key        = config('common.key_servesms');
                                     $devices    = config('common.devices_servesms');
                                     $number     = $rq->phone;
                                     $message    = "Cửa Hàng Tạp Hóa Chúc An cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi";
@@ -251,7 +251,7 @@ class CartController extends Controller
                     [
                         'status' => false,
                         'msg' => 'Bạn chưa chọn phương thức thanh toán',
-                        
+
                     ]
                 );
             }
@@ -260,7 +260,7 @@ class CartController extends Controller
                     [
                         'status' => false,
                         'msg' => 'Phương thức thanh toán này chưa được hỗ trợ, vui lòng chọn phương thức thanh toán khác!',
-                        
+
                     ]
                 );
             }
@@ -270,7 +270,7 @@ class CartController extends Controller
                     'email'=>'required|email|max:255',
                     'phone'=>'required|min:10|numeric',
                     'address'=>'required',
-    
+
                     ];
                 $msg = [
                     'fullname.required' =>'Vui lòng nhập đầy đủ họ tên',
@@ -282,7 +282,7 @@ class CartController extends Controller
                     'phone.min'=> 'Nhập số điện thoại có 10 chữ số',
                     'phone.numeric'=> 'Số điện thoại không đúng định dạng',
                     'address.required'=>'Bạn chưa nhập địa chỉ'
-                    
+
                 ];
                 $validator = Validator::make($rq->all(), $rule, $msg);
                 if ($validator->fails()) {
@@ -290,11 +290,11 @@ class CartController extends Controller
                         [
                             'status' => false,
                             'msg'=> [$validator->errors()]
-                            
+
                         ]
                     );
                 }
-                
+
                 $totalPriceInCart = 0;
                 foreach($_SESSION['carts'] as $val){
                     $totalPriceInCart += ($val['price'] * $val['quantity']) + ($totalPriceInCart*0.1);
@@ -313,7 +313,7 @@ class CartController extends Controller
                                             }
                                             else if($_SESSION['voucher']['type'] == 2){
                                                 $voucherPrice = ($totalPriceInCart * ($_SESSION['voucher']['value']) /100);
-                                            }   
+                                            }
                                         }
                 $order_date  =  Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
                 $insertOrder = Order::insert([
@@ -345,7 +345,7 @@ class CartController extends Controller
                                     'msg' => 'Sản phẩm <b>'. $sl->name . '</b> còn <b>' . $sl->quantily + $val['quantity'] . '</b> sản phẩm',
                                 ]
                             );
-                        }   
+                        }
                         $insertOderDetail = OrderDetail::insert([
                             'order_id' =>$getOrderId->id,
                             'product_id' =>$val['id'],
@@ -359,9 +359,9 @@ class CartController extends Controller
                             unset($_SESSION['voucher']);
                         }
                     }
-                
+
                     $HostDomain = config('common.HostDomain_servesms');
-                                    $key        = config('common.key_servesms');       
+                                    $key        = config('common.key_servesms');
                                     $devices    = config('common.devices_servesms');
                                     $number     = $rq->phone;
                                     $message    = "Cửa Hàng Tạp Hóa Chúc An cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi";
@@ -371,29 +371,29 @@ class CartController extends Controller
                         [
                             'status' => true,
                             'msg' => 'Đặt hàng thành công',
-                            
+
                         ]
                     );
                 }
-                
+
             }
             else{
                 return response()->json(
                     [
                         'status' => false,
                         'msg' => 'Vui lòng chọn phương thức thanh toán hợp lệ! ',
-                        
+
                     ]
                 );
             }
-        } 
+        }
         if($rq->isMethod('POST') && isset($_SESSION['cart'])){
             if(!$rq->paymentMethod){
                 return response()->json(
                     [
                         'status' => false,
                         'msg' => 'Bạn chưa chọn phương thức thanh toán',
-                        
+
                     ]
                 );
             }
@@ -402,7 +402,7 @@ class CartController extends Controller
                     [
                         'status' => false,
                         'msg' => 'Phương thức thanh toán này chưa được hỗ trợ, vui lòng chọn phương thức thanh toán khác!',
-                        
+
                     ]
                 );
             }
@@ -412,7 +412,7 @@ class CartController extends Controller
                     'email'=>'required|email|max:255',
                     'phone'=>'required|min:10|numeric',
                     'address'=>'required',
-    
+
                     ];
                 $msg = [
                     'fullname.required' =>'Vui lòng nhập đầy đủ họ tên',
@@ -424,7 +424,7 @@ class CartController extends Controller
                     'phone.min'=> 'Nhập số điện thoại có 10 chữ số',
                     'phone.numeric'=> 'Số điện thoại không đúng định dạng',
                     'address.required'=>'Bạn chưa nhập địa chỉ'
-                    
+
                 ];
                 $validator = Validator::make($rq->all(), $rule, $msg);
                 if ($validator->fails()) {
@@ -432,11 +432,11 @@ class CartController extends Controller
                         [
                             'status' => false,
                             'msg'=> [$validator->errors()]
-                            
+
                         ]
                     );
                 }
-                
+
                 $totalPriceInCart = 0;
                 foreach($_SESSION['cart'] as $val){
                     $totalPriceInCart += $val['price'] * $val['quantity'];
@@ -455,7 +455,7 @@ class CartController extends Controller
                                             }
                                             else if($_SESSION['voucher']['type'] == 2){
                                                 $voucherPrice = ($totalPriceInCart * ($_SESSION['voucher']['value']) /100);
-                                            }   
+                                            }
                                         }
                 $order_date  =  Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d');
                 $insertOrder = Order::insert([
@@ -487,7 +487,7 @@ class CartController extends Controller
                                     'msg' => 'Sản phẩm <b>'. $sl->name . '</b> còn <b>' . $sl->quantily + $val['quantity'] . '</b> sản phẩm',
                                 ]
                             );
-                        } 
+                        }
                         $insertOderDetail = OrderDetail::insert([
                             'order_id' =>$getOrderId->id,
                             'product_id' =>$val['id'],
@@ -500,9 +500,9 @@ class CartController extends Controller
                             unset($_SESSION['voucher']);
                         }
                     }
-                
+
                     $HostDomain = config('common.HostDomain_servesms');
-                                    $key        = config('common.key_servesms');       
+                                    $key        = config('common.key_servesms');
                                     $devices    = config('common.devices_servesms');
                                     $number     = $rq->phone;
                                     $message    = "Cửa Hàng Tạp Hóa Chúc An cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi";
@@ -513,7 +513,7 @@ class CartController extends Controller
                     [
                         'status' => true,
                         'msg' => 'Đặt hàng thành công',
-                        
+
                     ]
                 );
             }
@@ -573,29 +573,29 @@ class CartController extends Controller
                         [
                             'msg' => 'Số lượng k được nhỏ hơn 0',
                             'status' => false,
-                            
+
                         ]
                     );
                 }
-                if(isset($_SESSION['cart'][$pro->id])){ 
+                if(isset($_SESSION['cart'][$pro->id])){
                     if(isset($_SESSION['cart'][$idPro[$key]]['id']) == $idPro[$key]){
                         $_SESSION['cart'][$idPro[$key]]['id'] = $idPro[$key];
                         $_SESSION['cart'][$idPro[$key]]['quantity'] =$quantityPro[$key];
-                    } 
+                    }
                 }
-                if(isset($_SESSION['carts'][$pro->id])){ 
+                if(isset($_SESSION['carts'][$pro->id])){
                     if(isset($_SESSION['carts'][$idPro[$key]]['id']) == $idPro[$key]){
                         $_SESSION['carts'][$idPro[$key]]['id'] = $idPro[$key];
                         $_SESSION['carts'][$idPro[$key]]['quantity'] =$quantityPro[$key];
-                    } 
-                    
-                   
-                }    
-                
+                    }
+
+
+                }
+
             }
             $totalItem = 0;
             $totalPriceInCart = 0;
-            if(isset($_SESSION['cart']) && isset($_SESSION['carts'])){ 
+            if(isset($_SESSION['cart']) && isset($_SESSION['carts'])){
                 foreach($_SESSION['cart'] as $val){
                     $totalItem += $val['quantity'];
                     $totalPriceInCart += $val['price'] * $val['quantity'];
@@ -614,7 +614,7 @@ class CartController extends Controller
                     ]
                 );
             }
-            if(isset($_SESSION['cart'])){ 
+            if(isset($_SESSION['cart'])){
                 foreach($_SESSION['cart'] as $val){
                     $totalItem += $val['quantity'];
                     $totalPriceInCart += $val['price'] * $val['quantity'];
@@ -628,7 +628,7 @@ class CartController extends Controller
                     ]
                 );
             }
-            if(isset($_SESSION['carts'])){ 
+            if(isset($_SESSION['carts'])){
                 foreach($_SESSION['carts'] as $val){
                     $totalItem += $val['quantity'];
                     $totalPriceInCart += $val['price'] * $val['quantity'];
@@ -650,5 +650,9 @@ class CartController extends Controller
         unset($_SESSION['carts']);
         return back();
 }
+public function addCart(Request $request){
+    $this->authorize('admin');
+    $request->all();
 
+}
 }

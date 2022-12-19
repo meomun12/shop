@@ -25,10 +25,24 @@ class CommentController extends Controller
         $comment = Rating::all()->sortByDesc('id');
         return view('admin.comment.index', compact('user_comment','product_comment','comment'));
     }
+public function addComment(){
+    $this->authorize('admin');
+    $user_comment = Comment::all();
+    $product_commnet = Product::all();
+    $comment = Rating::all()->sortByDesc('id');
+    return view('admin.comment.index',compact('user_comment','product_comment','comment'));
 
+
+}
+public function store_comment(CommentRequest $request){
+    $this->authorize('admin');
+    $request->all();
+    $request->save();
+
+}
     public function deleteComment($id){
         Rating::destroy($id);
         Session::put('message','Xoá bình luận thành công');
-        return  redirect()->back();; 
+        return  redirect()->back();;
     }
 }
